@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class NotificationViewModel: ObservableObject {
     @Published var selectFilter : NotificationFilter = NotificationFilter.all
     @Published var showSheet : Bool = false
@@ -19,7 +20,6 @@ class NotificationViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func fetchNotifications() async throws {
         self.notifications = try await NotificationService.fetchNotificationById(userId: user?.id ?? "")
     }

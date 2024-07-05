@@ -158,5 +158,5 @@ struct NotiCellView: View {
 }
 
 #Preview {
-    NotiCellView(notification: Notification(id: UUID().uuidString, toId: UUID().uuidString, fromId: UUID().uuidString, type: .comment))
+    NotiCellView(notification: Notification(id: UUID().uuidString, toId: UUID().uuidString, fromId: UUID().uuidString, type: .like))
 }

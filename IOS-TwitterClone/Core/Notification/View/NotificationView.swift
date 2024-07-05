@@ -69,7 +69,7 @@ struct NotificationView: View {
                                 ForEach(viewModel.notifications) { notification in
                                     VStack {
                                         NotiCellView(notification: notification)
-                                            .padding(.top, 5)
+                                            .padding([.top,.bottom], 5)
                                         Divider()
                                     }
                                 }

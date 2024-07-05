@@ -100,4 +100,12 @@ class TweetService {
             }
         }
     }
+    
+    static func fetchTweetsById(tweetId: String) async throws -> Tweet {
+        print(tweetId)
+        let snapshot = try await Firestore.firestore().collection("tweets").document(tweetId).getDocument()
+        let tweet = try snapshot.data(as: Tweet.self)
+        print(tweet)
+        return tweet
+    }
 }

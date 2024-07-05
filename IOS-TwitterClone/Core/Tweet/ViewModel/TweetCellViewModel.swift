@@ -80,6 +80,11 @@ class TweetCellViewModel: ObservableObject {
             
             // database storage userId and postId for checking like
             AssociateLPService.likePost(userId: uidCurrent, postId: uidTweet)
+            
+            // set notification
+            let tweet = try await TweetService.fetchTweetsById(tweetId: uidTweet)
+            print(tweet)
+            try await NotificationService.sendNotification(notification: Notification(id: UUID().uuidString, toId: tweet.user?.id ?? "", fromId: uidCurrent, type: NotificationType.like))
         } else {
 
             // database storage postId and userIds

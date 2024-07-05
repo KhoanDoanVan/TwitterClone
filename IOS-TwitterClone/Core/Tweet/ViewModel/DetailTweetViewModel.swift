@@ -115,6 +115,10 @@ class DetailTweetViewModel: ObservableObject {
         // indeed
         try await CommentService.uploadComment(comment: comment)
         
+        // set notification
+        let tweet = try await TweetService.fetchTweetsById(tweetId: postId)
+        try await NotificationService.sendNotification(notification: Notification(id: UUID().uuidString, toId: tweet.user?.id ?? "", fromId: currentUser?.id ?? "", type: NotificationType.comment))
+        
         self.commentContent = ""
         setAmountComment(tweetUid: postId)
         setRealtimeForComment(uidComment: uid)
