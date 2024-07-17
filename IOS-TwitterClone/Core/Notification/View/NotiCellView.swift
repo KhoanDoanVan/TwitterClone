@@ -23,11 +23,6 @@ struct NotiCellView: View {
             
             VStack(alignment: .leading) {
                 if(notification.type != .follow) {
-//                    Image("main_avatar")
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(width: 40, height: 40)
-//                        .clipShape(Circle())
                     
                     if let user = viewModel.fromIdUser {
                         if let profileImage = user.profileImageUrl {
