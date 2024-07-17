@@ -18,8 +18,23 @@ struct NotificationView: View {
                 VStack(spacing : 0) {
                     ZStack {
                         HStack {
-                            Circle()
-                                .frame(width: 35)
+                            if let user = viewModel.user {
+                                if let profileImage = user.profileImageUrl {
+                                    RemoteImage(url: "\(profileImage)")
+                                        .scaledToFill()
+                                        .frame(width: 35, height: 35)
+                                        .clipShape(Circle())
+                                } else {
+                                    ZStack{
+                                        Image("imageProfile")
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .cornerRadius(50)
+                                    }
+                                }
+                            }
+//                            Circle()
+//                                .frame(width: 35)
                             Spacer()
                             Button {
                                 

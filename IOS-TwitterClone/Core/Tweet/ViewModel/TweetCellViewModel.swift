@@ -83,8 +83,10 @@ class TweetCellViewModel: ObservableObject {
             
             // set notification
             let tweet = try await TweetService.fetchTweetsById(tweetId: uidTweet)
-            print(tweet)
-            try await NotificationService.sendNotification(notification: Notification(id: UUID().uuidString, toId: tweet.user?.id ?? "", fromId: uidCurrent, type: NotificationType.like))
+            
+            let content = tweet?.content
+            
+            try await NotificationService.sendNotification(notification: Notification(id: UUID().uuidString, toId: tweet?.ownerUid ?? "", fromId: uidCurrent, type: NotificationType.like, content: content))
         } else {
 
             // database storage postId and userIds

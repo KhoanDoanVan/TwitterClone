@@ -23,11 +23,27 @@ struct NotiCellView: View {
             
             VStack(alignment: .leading) {
                 if(notification.type != .follow) {
-                    Image("main_avatar")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
+//                    Image("main_avatar")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 40, height: 40)
+//                        .clipShape(Circle())
+                    
+                    if let user = viewModel.fromIdUser {
+                        if let profileImage = user.profileImageUrl {
+                            RemoteImage(url: "\(profileImage)")
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        } else {
+                            ZStack{
+                                Image("imageProfile")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .cornerRadius(50)
+                            }
+                        }
+                    }
                 }
                 
                 VStack(alignment: .leading){
@@ -78,12 +94,16 @@ struct NotiCellView: View {
         switch(notification.type) {
         case .comment:
             Text("comment your Tweet")
+                .lineLimit(1)
         case .like:
             Text("liked your Tweet")
+                .lineLimit(1)
         case .retweet:
             Text("retweet your Tweet")
+                .lineLimit(1)
         case .follow:
             Text("followed you")
+                .lineLimit(1)
         }
     }
     
@@ -91,12 +111,13 @@ struct NotiCellView: View {
     func contentOfNotification(notification: Notification) -> some View {
         switch(notification.type) {
         case .comment:
-            Text("The color that is amazing right, did you love that? I don't know ahihi")
+            Text(notification.content ?? "unknown")
+                .lineLimit(1)
                 .font(.callout)
                 .opacity(0.6)
                 .padding(.top, 5)
         case .like:
-            Text("The color that is amazing right, did you love that? I don't know ahihi")
+            Text(notification.content ?? "unknown")
                 .font(.callout)
                 .opacity(0.6)
                 .padding(.top, 5)

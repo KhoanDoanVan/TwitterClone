@@ -101,11 +101,11 @@ class TweetService {
         }
     }
     
-    static func fetchTweetsById(tweetId: String) async throws -> Tweet {
+    static func fetchTweetsById(tweetId: String) async throws -> Tweet? {
         print(tweetId)
-        let snapshot = try await Firestore.firestore().collection("tweets").document(tweetId).getDocument()
-        let tweet = try snapshot.data(as: Tweet.self)
-        print(tweet)
-        return tweet
+        let snapshot = try await Firestore.firestore().collection("tweets").whereField("id", in: [tweetId]).getDocuments()
+        print(snapshot.documents)
+        let tweetData = try snapshot.documents.first?.data(as: Tweet.self)
+        return tweetData
     }
 }
